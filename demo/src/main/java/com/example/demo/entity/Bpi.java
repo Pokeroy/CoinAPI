@@ -1,7 +1,14 @@
 package com.example.demo.entity;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bpi {
     @JsonProperty("USD")
     private USD usd;
@@ -9,37 +16,4 @@ public class Bpi {
     private GBP gbp;
     @JsonProperty("EUR")
     private EUR eur;
-
-    public USD getUsd() {
-        return usd;
-    }
-
-    public void setUsd(USD usd) {
-        this.usd = usd;
-    }
-
-    public GBP getGbp() {
-        return gbp;
-    }
-
-    public void setGbp(GBP gbp) {
-        this.gbp = gbp;
-    }
-
-    public EUR getEur() {
-        return eur;
-    }
-
-    public void setEur(EUR eur) {
-        this.eur = eur;
-    }
-
-    @Override
-    public String toString() {
-        return "Bpi{" +
-                "usd=" + usd +
-                ", gbp=" + gbp +
-                ", eur=" + eur +
-                '}';
-    }
 }

@@ -1,9 +1,18 @@
 package com.example.demo.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "coin")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Coin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,37 +21,4 @@ public class Coin {
     private String currency;
     @Column(name = "chineseName", nullable = false)
     private String chineseName;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getChineseName() {
-        return chineseName;
-    }
-
-    public void setChineseName(String chineseName) {
-        this.chineseName = chineseName;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    @Override
-    public String toString() {
-        return "Coin{" +
-                "id=" + id +
-                ", currency='" + currency + '\'' +
-                ", chineseName='" + chineseName + '\'' +
-                '}';
-    }
 }

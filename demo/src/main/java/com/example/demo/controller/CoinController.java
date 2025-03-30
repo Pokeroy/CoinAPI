@@ -4,16 +4,16 @@ import com.example.demo.entity.Coin;
 import com.example.demo.entity.CurrencyInfo;
 import com.example.demo.entity.request.CoinReq;
 import com.example.demo.service.intf.ICoinService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class CoinController {
 
-    @Autowired
-    private ICoinService coinService;
+    private final ICoinService coinService;
 
     // 1.查詢 ---------------------------------------------------------
     @GetMapping(value = "/coin/coinData/{currency}")

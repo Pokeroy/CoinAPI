@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Coin;
-import com.example.demo.entity.CurrencyInfo;
 import com.example.demo.entity.request.CoinReq;
 import com.example.demo.service.intf.ICoinService;
 import lombok.RequiredArgsConstructor;
@@ -43,17 +42,4 @@ public class CoinController {
     public void deleteCoinData(@PathVariable String currency) {
         coinService.deleteCoinData(currency);
     }
-
-    // 5.取得 CoinDesk API 資料 -----------------------------------------
-    @GetMapping(value = "/coin/coinDeskData")
-    public String getCoinDeskData() {
-        return coinService.getCoinDeskData();
-    }
-
-    // 6.取得幣別資訊 ----------------------------------------------------
-    @GetMapping(value = "/coin/currencyInfo")
-    public CurrencyInfo getCurrencyInfo() {
-        return coinService.parseCurrencyInfo(coinService.getCoinDeskData());
-    }
-
 }

@@ -7,6 +7,7 @@ import com.example.demo.service.intf.ICoinService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,38 +21,30 @@ public class CoinService implements ICoinService {
 
     @Override
     public Coin findCoinData(String currency) {
-        log.info("查詢幣別資料: {}", currency);
-        Coin result = coinRepo.findByCurrency(currency);
-        log.info("幣別 {} 查詢結果: {}", currency, result != null ? "成功" : "未找到");
-        return result;
+        return coinRepo.findByCurrency(currency);
     }
 
     @Override
     public List<Coin> findAllCoinData() {
-        log.info("查詢所有幣別資料");
         List<Coin> result = new ArrayList<>();
-        coinRepo.findAll().forEach(result::add);
-        log.info("查詢所有幣別資料結果: 共 {} 筆資料", result.size());
+        result.addAll(coinRepo.findAll());
         return result;
     }
 
     @Override
+    @Transactional
     public Coin addCoinData(CoinReq coinReq) {
-        log.info("新增幣別資料: {}", coinReq);
         Coin addCoin = new Coin();
         addCoin.setCurrency(coinReq.getCurrency());
         addCoin.setChineseName(coinReq.getChineseName());
-        Coin savedCoin = coinRepo.save(addCoin);
-        log.info("幣別 {} 新增成功, ID: {}", savedCoin.getCurrency(), savedCoin.getId());
-        return savedCoin;
+        return coinRepo.save(addCoin);
     }
 
     @Override
+    @Transactional
     public Coin updateCoinData(CoinReq coinReq) {
-        log.info("更新幣別資料: {}", coinReq);
         Coin origCoin = coinRepo.findByCurrency(coinReq.getCurrency());
         if (origCoin != null) {
-            log.info("找到原有幣別資料: ID={}, 中文名稱={}", origCoin.getId(), origCoin.getChineseName());
             Coin updateCoin = new Coin();
             updateCoin.setId(origCoin.getId());
             updateCoin.setCurrency(coinReq.getCurrency());
@@ -66,9 +59,8 @@ public class CoinService implements ICoinService {
     }
 
     @Override
+    @Transactional
     public void deleteCoinData(String currency) {
-        log.info("刪除幣別資料: {}", currency);
         coinRepo.deleteByCurrency(currency);
-        log.info("幣別 {} 刪除成功", currency);
     }
 }
